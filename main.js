@@ -15,7 +15,6 @@ module.exports.loop = function() {
         Memory.spawn = true;
     }
     
-    console.log(Game.cpu.getUsed());
     
     roleCreateCreeps.run();
     
@@ -31,5 +30,18 @@ module.exports.loop = function() {
         if(creep.memory.role == 'builder') {
             roleBuilder.run(creep);
         }
+    }
+    
+    defendRoom(Game.rooms["W9N9"].name);
+}
+
+function defendRoom(roomName) {
+    var hostiles = Game.rooms[roomName].find(FIND_HOSTILE_CREEPS);
+    if(hostiles.length > 0) {
+        var username = hostiles[0].owner.username;
+        Game.notify(`User ${username} spotted in room ${roomName}`);
+        var towers = Game.rooms[roomName].find(
+            FIND_MY_STRUCTURES, {filter: {structureType: STRUCTURE_TOWER}});
+        towers.forEach(tower => tower.attack(hostiles[0]));
     }
 }

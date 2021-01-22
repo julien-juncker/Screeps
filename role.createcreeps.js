@@ -12,26 +12,27 @@ var roleCreateCreeps= {
         var upgraders =_.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
         console.log('Upgrader:' + upgraders.length);
         
-        if(upgraders.length < 2) {
+        if(upgraders.length < 3) {
             var newName = 'Upgrader' + Game.time;
+            var first_sources = Game.rooms["W9N9"].find(FIND_SOURCES);
             console.log('Spawning new upgraders: ' + newName);
             if(Game.spawns['Spawn1'].canCreateCreep([WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE], newName) == OK) {
                 Game.spawns['Spawn1'].spawnCreep([WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE], newName,
-                {memory: {role: 'upgrader' ,source: Memory.spawn}}); 
-                Memory.spawn = !Memory.spawn;
+                {memory: {role: 'upgrader' ,source: first_sources[0].id}}); 
+                //Memory.spawn = !Memory.spawn;
             }
         }
         
         var harvesters =_.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
         console.log('Harvester:' + harvesters.length);
         
-        if(harvesters.length < 4) {
-            var newName = 'Harvester' + Game.time;
+        if(harvesters.length < 3) {
+            var newName = 'Harvester' + Game.time; 
+            var first_sources = Game.rooms["W9N9"].find(FIND_SOURCES);
             console.log('Spawning new harvesters: ' + newName);
-            if(Game.spawns['Spawn1'].canCreateCreep([WORK, CARRY, CARRY, MOVE], newName) == OK) {
-                Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, CARRY, MOVE], newName,
-                {memory: {role: 'harvester', source: Memory.spawn}});
-                Memory.spawn = !Memory.spawn;
+            if(Game.spawns['Spawn1'].canCreateCreep([WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE], newName) == OK) {
+                Game.spawns['Spawn1'].spawnCreep([WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE], newName,
+                {memory: {role: 'harvester', source: first_sources[0].id, droping: false}});
             }
         }
         
@@ -40,11 +41,11 @@ var roleCreateCreeps= {
         
         if(builders.length < 3) {
             var newName = 'Builder' + Game.time;
+            var first_sources = Game.rooms["W9N9"].find(FIND_SOURCES);
             console.log('Spawning new builders: ' + newName);
-            if(Game.spawns['Spawn1'].canCreateCreep([WORK, WORK, WORK, CARRY, CARRY, MOVE], newName) == OK) {
-                Game.spawns['Spawn1'].spawnCreep([WORK, WORK, WORK, CARRY, CARRY, MOVE], newName,
-                {memory: {role: 'builder', source: Memory.spawn}});
-                Memory.spawn = !Memory.spawn;
+            if(Game.spawns['Spawn1'].canCreateCreep([WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE], newName) == OK) {
+                Game.spawns['Spawn1'].spawnCreep([WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE], newName,
+                {memory: {role: 'builder', source: first_sources[0].id}});
             }
         }
     }

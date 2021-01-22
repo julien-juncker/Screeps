@@ -14,6 +14,10 @@ var roleUpgrader = {
     run: function(creep) {
         if(creep.memory.upgrading && creep.store[RESOURCE_ENERGY] == 0) {
             creep.memory.upgrading = false;
+            
+            //define new source
+            var sources = creep.room.find(FIND_SOURCES);
+            creep.memory.source = sources[0].id;
         } 
         if(!creep.memory.upgrading && creep.carry.energy == creep.carryCapacity) {
             creep.memory.upgrading = true;
@@ -24,10 +28,9 @@ var roleUpgrader = {
             }
         }
         else {
-            var i = creep.memory.source ? 1 : 0 ;
-            var sources = creep.room.find(FIND_SOURCES);
-            if(creep.harvest(sources[i]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[i]);
+            var source = Game.getObjectById(creep.memory.source);
+            if(creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(source);
             }
         }
     }
