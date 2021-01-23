@@ -17,8 +17,9 @@ var roleBuilder = {
             creep.say('🔄 harvest');
             
             //define new source
-            var sources = creep.room.find(FIND_SOURCES);
-            creep.memory.source = sources[0].id;
+            var indexSource = creep.room.memory.sourceSwitcher ? 1 : 0;
+            creep.memory.source = creep.room.memory.sourcesId[indexSource];
+            creep.room.memory.sourceSwitcher = !creep.room.memory.sourceSwitcher;
         }
         if(!creep.memory.building && creep.store.getFreeCapacity() == 0) {
             creep.memory.building = true;
@@ -34,7 +35,7 @@ var roleBuilder = {
                 if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
                 }
-            } else if(tower.getFreeCapacity != 0) {
+            } else if(tower.store[RESOURCE_ENERGY] != 1000) {
                 if(creep.transfer(tower, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(tower);
                 }

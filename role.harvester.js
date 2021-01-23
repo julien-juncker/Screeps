@@ -14,8 +14,10 @@ var roleHarvester = {
             creep.memory.droping = false;
             
             //define new source
-            var sources = creep.room.find(FIND_SOURCES);
-            creep.memory.source = sources[0].id;
+            //var sources = creep.room.find(FIND_SOURCES
+            var indexSource = creep.room.memory.sourceSwitcher ? 1 : 0;
+            creep.memory.source = creep.room.memory.sourcesId[indexSource];
+            creep.room.memory.sourceSwitcher = !creep.room.memory.sourceSwitcher;
         } 
         if(!creep.memory.droping && creep.carry.energy == creep.carryCapacity) {
             creep.memory.droping = true;

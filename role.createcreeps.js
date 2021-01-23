@@ -16,8 +16,8 @@ var roleCreateCreeps= {
             var newName = 'Upgrader' + Game.time;
             var first_sources = Game.rooms["W9N9"].find(FIND_SOURCES);
             console.log('Spawning new upgraders: ' + newName);
-            if(Game.spawns['Spawn1'].canCreateCreep([WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE], newName) == OK) {
-                Game.spawns['Spawn1'].spawnCreep([WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE], newName,
+            if(Game.spawns['Spawn1'].canCreateCreep([WORK, WORK, WORK, CARRY, CARRY, CARRY,CARRY, MOVE, MOVE], newName) == OK) {
+                Game.spawns['Spawn1'].spawnCreep([WORK, WORK, WORK, CARRY, CARRY, CARRY,CARRY, MOVE,MOVE], newName,
                 {memory: {role: 'upgrader' ,source: first_sources[0].id}}); 
                 //Memory.spawn = !Memory.spawn;
             }
@@ -30,8 +30,8 @@ var roleCreateCreeps= {
             var newName = 'Harvester' + Game.time; 
             var first_sources = Game.rooms["W9N9"].find(FIND_SOURCES);
             console.log('Spawning new harvesters: ' + newName);
-            if(Game.spawns['Spawn1'].canCreateCreep([WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE], newName) == OK) {
-                Game.spawns['Spawn1'].spawnCreep([WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE], newName,
+            if(Game.spawns['Spawn1'].canCreateCreep([WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE], newName) == OK) {
+                Game.spawns['Spawn1'].spawnCreep([WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE], newName,
                 {memory: {role: 'harvester', source: first_sources[0].id, droping: false}});
             }
         }

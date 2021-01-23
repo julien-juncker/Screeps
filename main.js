@@ -15,6 +15,14 @@ module.exports.loop = function() {
         Memory.spawn = true;
     }
     
+    if(Game.rooms["W9N9"].memory.sourcesId == null || Game.rooms["W9N9"].memory.sourcesId.length == 0) {
+        Game.rooms["W9N9"].memory.sourcesId = [];
+        var sources = Game.rooms["W9N9"].find(FIND_SOURCES);
+        Game.rooms["W9N9"].memory.sourcesId[0] = sources[0].id;
+        Game.rooms["W9N9"].memory.sourcesId[1] = sources[1].id;
+        Game.rooms["W9N9"].memory.sourceSwitcher = false;
+    }
+    
     
     roleCreateCreeps.run();
     

@@ -16,8 +16,9 @@ var roleUpgrader = {
             creep.memory.upgrading = false;
             
             //define new source
-            var sources = creep.room.find(FIND_SOURCES);
-            creep.memory.source = sources[0].id;
+            var indexSource = creep.room.memory.sourceSwitcher ? 1 : 0;
+            creep.memory.source = creep.room.memory.sourcesId[indexSource];
+            creep.room.memory.sourceSwitcher = !creep.room.memory.sourceSwitcher;
         } 
         if(!creep.memory.upgrading && creep.carry.energy == creep.carryCapacity) {
             creep.memory.upgrading = true;
