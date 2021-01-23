@@ -29,11 +29,11 @@ var creepBuilder = {
         if(creep.memory.building) {
             // find contruction or tower or repair road
             
-            var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
+            var constructionsTargets = creep.room.find(FIND_CONSTRUCTION_SITES);
             var tower = creep.pos.findClosestByPath(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_TOWER) } });
-            if(targets.length) {
-                if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
+            if(constructionsTargets.length) {
+                if(creep.build(constructionsTargets[0]) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(constructionsTargets[0], {visualizePathStyle: {stroke: '#ffffff'}});
                 }
             } else if(tower.store[RESOURCE_ENERGY] != 1000) {
                 if(creep.transfer(tower, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {

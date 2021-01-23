@@ -10,9 +10,10 @@
 var roleHarvester = require('creep.harvester');
 var roleUpgrader = require('creep.upgrader');
 var roleBuilder = require('creep.builder');
+var preset = require('creep.preset');
 
 function CreepFactory() {
-    this.createCreep = function (type, curr_room) {
+    this.createCreep = function (type, curr_room, preset) {
         var creep;
         var newName = type + Game.time;
         var first_sources = curr_room.find(FIND_SOURCES);
@@ -20,39 +21,46 @@ function CreepFactory() {
         switch(type) {
             case 'harvester':
                 console.log('Spawning new harvester: ' + newName);
-                Game.spawns['Spawn1'].spawnCreep([WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE], newName,
+                Game.spawns['Spawn1'].spawnCreep(preset, newName,
                     {memory: {role: type, source: first_sources[0].id}}); 
                 break;
             case 'builder':
                 console.log('Spawning new builder: ' + newName);
-                Game.spawns['Spawn1'].spawnCreep([WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE], newName,
+                Game.spawns['Spawn1'].spawnCreep(preset, newName,
                     {memory: {role: type, source: first_sources[0].id}});
                 break;
             case 'upgrader':
                 console.log('Spawning new upgrader: ' + newName)
-                Game.spawns['Spawn1'].spawnCreep([WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE], newName,
+                Game.spawns['Spawn1'].spawnCreep(preset, newName,
                     {memory: {role: type, source: first_sources[0].id}});
                 break;
         }
     }
     
-    this.controlCreepSpawn = function(curr_room) {
-        var upgraders =_.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
-        console.log('Upgrader:' + upgraders.length);
-        if(upgraders.length < curr_room.memory.params.upgrader_count) {
-            this.createCreep('upgrader', curr_room);
-        }
-        
+    this.controlCreepSpawn = function(curr_room, creepPreset) {
+        var harvesterPreset = creepPreset[0];
         var harvesters =_.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
+        var upgraderPreset = creepPreset[1];
+        var upgraders =_.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
+        var builderPreset = creepPreset[2];
+        var builders =_.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
+        
+        // Harvester
         console.log('Harvester:' + harvesters.length);
         if(harvesters.length < curr_room.memory.params.harvester_count) {
-            this.createCreep('harvester', curr_room);        
+            this.createCreep('harvester', curr_room, harvesterPreset);        
         }
         
-        var builders =_.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
+        // Upgrader
+        console.log('Upgrader:' + upgraders.length);
+        if(upgraders.length < curr_room.memory.params.upgrader_count) {
+            this.createCreep('upgrader', curr_room, upgraderPreset);
+        }
+        
+        // Builder
         console.log('Builder:' + builders.length);
         if(builders.length < curr_room.memory.params.builder_count) {
-            this.createCreep('builder', curr_room); 
+            this.createCreep('builder', curr_room, builderPreset); 
         }
     }
     
@@ -85,8 +93,9 @@ function CreepFactory() {
 var creepController =  {
     run : function(curr_room) {
         var creepFactory = new CreepFactory();
+        var creepPreset = preset.run(curr_room);
         creepFactory.deleteCreepsMemory();
-        creepFactory.controlCreepSpawn(curr_room);
+        creepFactory.controlCreepSpawn(curr_room, creepPreset);
         creepFactory.creepsAction();
     }
 }
