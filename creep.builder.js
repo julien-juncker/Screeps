@@ -3,11 +3,11 @@
  * module.exports.thing = 'a thing';
  *
  * You can import it from another modules like this:
- * var mod = require('role.builder');
+ * var mod = require('creep.builder');
  * mod.thing == 'a thing'; // true
  */
 
-var roleBuilder = {
+var creepBuilder = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
@@ -63,4 +63,4 @@ var roleBuilder = {
     }
 };
 
-module.exports = roleBuilder;
+module.exports = creepBuilder;

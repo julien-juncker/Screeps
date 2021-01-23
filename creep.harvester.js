@@ -3,11 +3,11 @@
  * module.exports.thing = 'a thing';
  *
  * You can import it from another modules like this:
- * var mod = require('role.haverster');
+ * var mod = require('creep.harverster');
  * mod.thing == 'a thing'; // true
  */
  
-var roleHarvester = {
+var creepHarvester = {
     /** @param {Creep} creep **/
     run: function(creep) {
         if(creep.memory.droping && creep.store[RESOURCE_ENERGY] == 0) {
@@ -43,4 +43,4 @@ var roleHarvester = {
     }
 }
 
-module.exports = roleHarvester;
+module.exports = creepHarvester;

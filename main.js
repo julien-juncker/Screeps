@@ -1,54 +1,38 @@
-var roleHarvester = require('role.harvester');
-var roleUpgrader = require('role.upgrader');
-var roleBuilder = require('role.builder');
-var roleCreateCreeps = require('role.createcreeps');
+var creepsController = require('creep.creepsController');
 
 module.exports.loop = function() {
-    for(var name in Memory.creeps) {
-        if(!Game.creeps[name]) {
-            delete Memory.creeps[name];
-            console.log('Clearing non-existing creep memory:', name);
-        }
+    // Get room name
+    var curr_room = Game.rooms["W9N9"];
+    
+    // Define params
+    if(curr_room.memory.params == null) {
+        curr_room.memory.params = new Object();
+    }
+    curr_room.memory.params.harvester_count = 3;
+    curr_room.memory.params.builder_count = 3;
+    curr_room.memory.params.upgrader_count = 4;
+    
+    creepsController.run(curr_room);
+    
+    // Get source in room
+    if(curr_room.memory.sourcesId == null || curr_room.memory.sourcesId.length == 0) {
+        curr_room.memory.sourcesId = [];
+        var sources = curr_room.find(FIND_SOURCES);
+        curr_room.memory.sourcesId[0] = sources[0].id;
+        curr_room.memory.sourcesId[1] = sources[1].id;
+        curr_room.memory.sourceSwitcher = false;
     }
     
-    if(Memory.spawn == null) {
-        Memory.spawn = true;
-    }
-    
-    if(Game.rooms["W9N9"].memory.sourcesId == null || Game.rooms["W9N9"].memory.sourcesId.length == 0) {
-        Game.rooms["W9N9"].memory.sourcesId = [];
-        var sources = Game.rooms["W9N9"].find(FIND_SOURCES);
-        Game.rooms["W9N9"].memory.sourcesId[0] = sources[0].id;
-        Game.rooms["W9N9"].memory.sourcesId[1] = sources[1].id;
-        Game.rooms["W9N9"].memory.sourceSwitcher = false;
-    }
-    
-    
-    roleCreateCreeps.run();
-    
-    for(var name in Game.creeps) {
-        console.log(name);
-        var creep = Game.creeps[name];
-        if(creep.memory.role == 'harvester') {
-            roleHarvester.run(creep);
-        }
-        if(creep.memory.role == 'upgrader') {
-            roleUpgrader.run(creep);
-        }
-        if(creep.memory.role == 'builder') {
-            roleBuilder.run(creep);
-        }
-    }
-    
-    defendRoom(Game.rooms["W9N9"].name);
+    // Tower defense
+    defendRoom(curr_room);
 }
 
-function defendRoom(roomName) {
-    var hostiles = Game.rooms[roomName].find(FIND_HOSTILE_CREEPS);
+function defendRoom(curr_room) {
+    var hostiles = curr_room.find(FIND_HOSTILE_CREEPS);
     if(hostiles.length > 0) {
         var username = hostiles[0].owner.username;
-        Game.notify(`User ${username} spotted in room ${roomName}`);
-        var towers = Game.rooms[roomName].find(
+        Game.notify(`User ${username} spotted in room ${curr_room.name}`);
+        var towers = curr_room.find(
             FIND_MY_STRUCTURES, {filter: {structureType: STRUCTURE_TOWER}});
         towers.forEach(tower => tower.attack(hostiles[0]));
     }
