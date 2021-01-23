@@ -1,4 +1,5 @@
 var creepsController = require('creep.creepsController');
+var defenseController = require('defense.defenseController');
 
 module.exports.loop = function() {
     // Get room name
@@ -8,8 +9,7 @@ module.exports.loop = function() {
     
     creepsController.run(curr_room);
     
-    // Tower defense
-    defendRoom(curr_room);
+    defenseController.run(curr_room);
 }
 
 function defendRoom(curr_room) {

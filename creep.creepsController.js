@@ -30,7 +30,7 @@ function CreepFactory() {
                 break;
             case 'upgrader':
                 console.log('Spawning new upgrader: ' + newName)
-                Game.spawns['Spawn1'].spawnCreep([WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], newName,
+                Game.spawns['Spawn1'].spawnCreep([WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE], newName,
                     {memory: {role: type, source: first_sources[0].id}});
                 break;
         }
