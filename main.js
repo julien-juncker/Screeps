@@ -12,17 +12,6 @@ module.exports.loop = function() {
     defenseController.run(curr_room);
 }
 
-function defendRoom(curr_room) {
-    var hostiles = curr_room.find(FIND_HOSTILE_CREEPS);
-    if(hostiles.length > 0) {
-        var username = hostiles[0].owner.username;
-        Game.notify(`User ${username} spotted in room ${curr_room.name}`);
-        var towers = curr_room.find(
-            FIND_MY_STRUCTURES, {filter: {structureType: STRUCTURE_TOWER}});
-        towers.forEach(tower => tower.attack(hostiles[0]));
-    }
-}
-
 function parametersController(curr_room) {
     // Define params
     if(curr_room.memory.params == null) {
