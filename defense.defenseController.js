@@ -16,6 +16,16 @@ function DefenseFactory() {
             var towers = curr_room.find(
                 FIND_MY_STRUCTURES, {filter: {structureType: STRUCTURE_TOWER}});
             towers.forEach(tower => tower.attack(hostiles[0]));
+        } else {
+            
+            var towers = curr_room.find(
+                FIND_MY_STRUCTURES, {filter: {structureType: STRUCTURE_TOWER}});
+            towers.forEach((tower) => {
+                var closestDamagedWall = _.filter(tower.room.find(FIND_STRUCTURES), (wall) => (wall.structureType == STRUCTURE_WALL && wall.hits < 50000));
+                if (closestDamagedWall) {
+                    tower.repair(closestDamagedWall[0]);
+                }
+            });
         }
     }
 }
