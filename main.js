@@ -1,5 +1,6 @@
 var creepsController = require('creep.creepsController');
 var defenseController = require('defense.defenseController');
+var energyController = require('energy.energyController');
 
 module.exports.loop = function() {
     // Get room name
@@ -7,13 +8,11 @@ module.exports.loop = function() {
     
     parametersController(curr_room);
     
+    energyController.run(curr_room);
+    
     creepsController.run(curr_room);
     
     defenseController.run(curr_room);
-    
-    const linkFrom = Game.getObjectById("cdef425685ec073");
-    const linkTo = Game.getObjectById("706c3788d67b5e6");
-    linkFrom.transferEnergy(linkTo);
 }
 
 function parametersController(curr_room) {
@@ -21,6 +20,7 @@ function parametersController(curr_room) {
     if(curr_room.memory.params == null) {
         curr_room.memory.params = new Object();
         curr_room.memory.params.transfererControl = true;
+        curr_room.memory.params.isTransferEnergy = false;
     }
     
     if(curr_room.energyCapacityAvailable <= 300) {
@@ -29,12 +29,14 @@ function parametersController(curr_room) {
         curr_room.memory.params.builder_count = 0;
         curr_room.memory.params.upgrader_count = 1;
         curr_room.memory.params.transferer_count = 0;
+        curr_room.memory.params.energyThreshold = 400;
         curr_room.memory.params.preset = 2;
     } else {
         curr_room.memory.params.harvester_count = 3;
         curr_room.memory.params.builder_count = 3;
         curr_room.memory.params.upgrader_count = 3;
         curr_room.memory.params.transferer_count = 2;
+        curr_room.memory.params.energyThreshold = 400;
         curr_room.memory.params.preset = 1;
     }
     

@@ -11,6 +11,7 @@ var roleHarvester = require('creep.harvester');
 var roleUpgrader = require('creep.upgrader');
 var roleBuilder = require('creep.builder');
 var roleTransferer = require('creep.transferer');
+var roleStorageTransferer = require('creep.storageTransferer')
 var preset = require('creep.preset');
 
 function CreepFactory() {
@@ -97,6 +98,9 @@ function CreepFactory() {
             }
             if(creep.memory.role == 'transferer') {
                 roleTransferer.run(creep);
+            }
+            if(creep.memory.role == 'storageTransferer') {
+                roleStorageTransferer.run(creep);
             }
         }
     }
