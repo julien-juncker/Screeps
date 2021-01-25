@@ -10,7 +10,7 @@
 var roleHarvester = require('creep.harvester');
 var roleUpgrader = require('creep.upgrader');
 var roleBuilder = require('creep.builder');
-var roleTransferer = require('creep.transferer');
+var roleLinkTransferer = require('creep.linkTransferer');
 var roleStorageTransferer = require('creep.storageTransferer')
 var preset = require('creep.preset');
 
@@ -36,10 +36,10 @@ function CreepFactory() {
                 Game.spawns['Spawn1'].spawnCreep(preset, newName,
                     {memory: {role: type, source: first_sources[0].id}});
                 break;
-            case 'transferer':
-                console.log('Spawning new transferer: ' + newName);
+            case 'linkTranferer':
+                console.log('Spawning new link transferer: ' + newName);
                 Game.spawns['Spawn1'].spawnCreep(preset, newName,
-                    {memory: {role: type, transferer: curr_room.memory.params.transfererControl, source: first_sources[0].id}});
+                    {memory: {role: type, transferer: curr_room.memory.params.linkTransfererControl, source: first_sources[0].id}});
                 break;
         }
     }
@@ -51,8 +51,8 @@ function CreepFactory() {
         var upgraders =_.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
         var builderPreset = creepPreset[2];
         var builders =_.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
-        var transfererPreset = creepPreset[3];
-        var tranferers =_.filter(Game.creeps, (creep) => creep.memory.role == 'transferer');
+        var linkTransfererPreset = creepPreset[3];
+        var linkTranferers =_.filter(Game.creeps, (creep) => creep.memory.role == 'linkTranferer');
         
         // Harvester
         console.log('Harvester:' + harvesters.length);
@@ -73,12 +73,12 @@ function CreepFactory() {
         }
         
         // Transferer
-        console.log('Transferer:' + tranferers.length);
-        if(tranferers.length < curr_room.memory.params.transferer_count) {
-            if(tranferers.length == 1) {
-                curr_room.memory.params.transfererControl = !tranferers[0].memory.transferer;
+        console.log('Transferer:' + linkTranferers.length);
+        if(linkTranferers.length < curr_room.memory.params.link_transferer_count) {
+            if(linkTranferers.length == 1) {
+                curr_room.memory.params.linkTransfererControl = !linkTranferers[0].memory.transferer;
             }
-            this.createCreep('transferer', curr_room, transfererPreset); 
+            this.createCreep('linkTranferer', curr_room, linkTransfererPreset); 
         }
         
     }
@@ -96,8 +96,8 @@ function CreepFactory() {
             if(creep.memory.role == 'builder') {
                 roleBuilder.run(creep);
             }
-            if(creep.memory.role == 'transferer') {
-                roleTransferer.run(creep);
+            if(creep.memory.role == 'linkTranferer') {
+                roleLinkTransferer.run(creep);
             }
             if(creep.memory.role == 'storageTransferer') {
                 roleStorageTransferer.run(creep);

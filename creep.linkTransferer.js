@@ -3,11 +3,11 @@
  * module.exports.thing = 'a thing';
  *
  * You can import it from another modules like this:
- * var mod = require('creep.transferer');
+ * var mod = require('creep.linkTransferer');
  * mod.thing == 'a thing'; // true
  */
 
-var creepTransferer = {
+var creepLinkTransferer = {
     /** @param {Creep} creep **/
     run: function(creep) {
         if(creep.memory.transferer) {
@@ -70,4 +70,4 @@ var creepTransferer = {
     }
 }
 
-module.exports = creepTransferer;
+module.exports = creepLinkTransferer;

@@ -19,7 +19,7 @@ function parametersController(curr_room) {
     // Define params
     if(curr_room.memory.params == null) {
         curr_room.memory.params = new Object();
-        curr_room.memory.params.transfererControl = true;
+        curr_room.memory.params.linkTransfererControl = true;
         curr_room.memory.params.isTransferEnergy = false;
     }
     
@@ -28,14 +28,14 @@ function parametersController(curr_room) {
         curr_room.memory.params.harvester_count = 1;
         curr_room.memory.params.builder_count = 0;
         curr_room.memory.params.upgrader_count = 1;
-        curr_room.memory.params.transferer_count = 0;
+        curr_room.memory.params.link_transferer_count = 0;
         curr_room.memory.params.energyThreshold = 400;
         curr_room.memory.params.preset = 2;
     } else {
         curr_room.memory.params.harvester_count = 3;
         curr_room.memory.params.builder_count = 3;
         curr_room.memory.params.upgrader_count = 3;
-        curr_room.memory.params.transferer_count = 2;
+        curr_room.memory.params.link_transferer_count = 2;
         curr_room.memory.params.energyThreshold = 400;
         curr_room.memory.params.preset = 1;
     }
