@@ -14,7 +14,7 @@ var creepLinkTransferer = {
             if(creep.memory.droping && creep.store[RESOURCE_ENERGY] == 0) {
                 creep.memory.droping = false;
                 
-                //define new source
+                //define new source 
                 var indexSource = creep.room.memory.sourceSwitcher ? 1 : 0;
                 creep.memory.source = creep.room.memory.sourcesId[indexSource];
                 creep.room.memory.sourceSwitcher = !creep.room.memory.sourceSwitcher;

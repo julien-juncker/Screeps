@@ -14,7 +14,7 @@ var creepPreset = {
         switch(curr_room.memory.params.preset) {
             case 1:
                 // harvester
-                creepPresetList.push([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE]);
+                creepPresetList.push([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE]);
                 
                 // upgrader
                 creepPresetList.push([WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE]);
@@ -22,7 +22,10 @@ var creepPreset = {
                 // builder
                 creepPresetList.push([WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE]);
                 
-                // transferer
+                // storage transferer
+                creepPresetList.push([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE]);
+                
+                // link transferer
                 creepPresetList.push([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE]);
                 break;
             case 2:
@@ -35,7 +38,10 @@ var creepPreset = {
                 // builder
                 creepPresetList.push([WORK, CARRY, CARRY, MOVE]);
                 
-                // transferer
+                // storage transferer
+                creepPresetList.push([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE]);
+                
+                // link transferer
                 creepPresetList.push([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE]);
         }
         return creepPresetList;

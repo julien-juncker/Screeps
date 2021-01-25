@@ -28,16 +28,20 @@ function parametersController(curr_room) {
         curr_room.memory.params.harvester_count = 1;
         curr_room.memory.params.builder_count = 0;
         curr_room.memory.params.upgrader_count = 1;
+        curr_room.memory.params.storage_transferer_count = 0;
         curr_room.memory.params.link_transferer_count = 0;
         curr_room.memory.params.energyThreshold = 400;
         curr_room.memory.params.preset = 2;
+        curr_room.memory.params.roomController = 1;
     } else {
         curr_room.memory.params.harvester_count = 3;
-        curr_room.memory.params.builder_count = 3;
-        curr_room.memory.params.upgrader_count = 3;
+        curr_room.memory.params.builder_count = 4;
+        curr_room.memory.params.upgrader_count = 4;
+        curr_room.memory.params.storage_transferer_count = 0;
         curr_room.memory.params.link_transferer_count = 2;
         curr_room.memory.params.energyThreshold = 400;
         curr_room.memory.params.preset = 1;
+        curr_room.memory.params.roomController = 6;
     }
     
     // Get source in room

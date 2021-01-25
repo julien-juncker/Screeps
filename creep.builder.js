@@ -55,10 +55,21 @@ var creepBuilder = {
             }
         }
         else {
-            var source = Game.getObjectById(creep.memory.source);
+            /*var source = Game.getObjectById(creep.memory.source);
             if(creep.harvest(source) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}});
-            }
+            }*/
+            
+            var storageTargets = creep.room.find(FIND_STRUCTURES, {
+                filter: (structure) => {
+                    return structure.structureType == STRUCTURE_STORAGE && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+                }
+            });
+            if(storageTargets.length != 0) {
+                if(creep.withdraw(storageTargets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(storageTargets[0], {visualizePathStyle: {stroke: '#ffffff'}});
+                }
+            }     
         }
     }
 };

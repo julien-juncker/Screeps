@@ -37,8 +37,13 @@ function EnergyFactory() {
 var energyController = {
     run: function(curr_room) {
         var energyController = new EnergyFactory();
-        energyController.controlLink();
-        energyController.controlEnergy(curr_room);
+        
+        // Activate when you unlock link structure
+        if(curr_room.memory.params.roomController >= 5) {
+            energyController.controlLink();
+        }
+
+        //energyController.controlEnergy(curr_room);
     }
 }
 

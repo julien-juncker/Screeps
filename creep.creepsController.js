@@ -41,6 +41,11 @@ function CreepFactory() {
                 Game.spawns['Spawn1'].spawnCreep(preset, newName,
                     {memory: {role: type, transferer: curr_room.memory.params.linkTransfererControl, source: first_sources[0].id}});
                 break;
+            case 'storageTranferer':
+                console.log('Spawning new strorage transferer: ' + newName);
+                Game.spawns['Spawn1'].spawnCreep(preset, newName,
+                    {memory: {role: type, source: first_sources[0].id}});
+                break;
         }
     }
     
@@ -51,7 +56,9 @@ function CreepFactory() {
         var upgraders =_.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
         var builderPreset = creepPreset[2];
         var builders =_.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
-        var linkTransfererPreset = creepPreset[3];
+        var storageTransfererPreset = creepPreset[3];
+        var storageTranferers =_.filter(Game.creeps, (creep) => creep.memory.role == 'storageTranferer');
+        var linkTransfererPreset = creepPreset[4];
         var linkTranferers =_.filter(Game.creeps, (creep) => creep.memory.role == 'linkTranferer');
         
         // Harvester
@@ -72,8 +79,14 @@ function CreepFactory() {
             this.createCreep('builder', curr_room, builderPreset); 
         }
         
-        // Transferer
-        console.log('Transferer:' + linkTranferers.length);
+        // Storage Transferer
+        console.log('Storage Transferer:' + storageTranferers.length);
+        if(storageTranferers.length < curr_room.memory.params.storage_transferer_count) {
+            this.createCreep('storageTranferer', curr_room, storageTransfererPreset); 
+        }
+        
+        // Link Transferer
+        console.log('link Transferer:' + linkTranferers.length);
         if(linkTranferers.length < curr_room.memory.params.link_transferer_count) {
             if(linkTranferers.length == 1) {
                 curr_room.memory.params.linkTransfererControl = !linkTranferers[0].memory.transferer;
