@@ -21,6 +21,10 @@ var creepPreset = {
                 
                 // builder
                 creepPresetList.push([WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE]);
+                
+                // transferer
+                //creepPresetList.push([WORK, CARRY, MOVE]);
+                creepPresetList.push([WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE]);
                 break;
             case 2:
                 // harvester
@@ -31,6 +35,9 @@ var creepPreset = {
                 
                 // builder
                 creepPresetList.push([WORK, CARRY, CARRY, MOVE]);
+                
+                // transferer
+                creepPresetList.push([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE]);
         }
         return creepPresetList;
     }
